@@ -1,8 +1,8 @@
 //SUPABASE///
 
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MDE3NDIxNSwiZXhwIjoxOTU1NzUwMjE1fQ.opmzyMhA3rVnuQFo31eGgT-KVY9gN-N-WvjYei4j-DA"
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MTIwOTc0NiwiZXhwIjoxOTU2Nzg1NzQ2fQ.xSrL7QLUOh34mOvkA5-CoBsU7jCfphnFepRI_C4iXC8"
 
-const API_URL = "https://jywhypiqmujlrmbbfehm.supabase.co/rest/v1/School_App"
+const API_URL = "https://pkuusneffrezojrampxk.supabase.co/rest/v1/SchoolAP"
 
 //Declaration 
 const buttonEL = document.getElementById('btn-suggestion')
@@ -13,8 +13,10 @@ const bioEL = document. getElementById ('exampleFormControlTextarea1')
 const levelEL = document. getElementById ('level')
 const valider = document.querySelector ('#btn-suggestion')
 const saveEL = document. getElementById ('saveEL')
+console.log(saveEL)
 const suppEL = document. getElementById ('supp')
 const modifEL = document. getElementById ('modif')
+const APPRENANTS = []
 
 let inputSuggestion = document.querySelector('#exampleFormControlTextarea1')
 
@@ -27,7 +29,11 @@ let inputSuggestion = document.querySelector('#exampleFormControlTextarea1')
 buttonEL.addEventListener('click', (e)=>{
     console.log (e)
     const ajouter_List = document. getElementById ('ajout_List')
-
+    let apprenant = {prenom:prenomEL.value,
+    nom:nameEL.value,
+    bio:bioEL.value,
+    }
+APPRENANTS.push(apprenant)
     ajouter_List.insertAdjacentHTML(
         "afterbegin", 
         `
@@ -38,15 +44,15 @@ buttonEL.addEventListener('click', (e)=>{
         <i class="bi bi-archive" id="supp"></i>
         </div>
                     <div class="card-body">
-                      <h5 class="card-title"> ${prenomEL.value} ${nameEL.value} <br>${levelEL.value}</h5>
-                      <p class="card-text">${bioEL.value}</p>
+                      <h5 class="card-title"> ${apprenant.prenom} ${apprenant.nom} <br>${levelEL.value}</h5>
+                      <p class="card-text">${apprenant.bio}</p>
                     </div>
                   </div>
         
         `
     
     )
-
+console.log(APPRENANTS)
 
 });
 
@@ -88,4 +94,19 @@ inputSuggestion.addEventListener("input", (event) => {
 
 
 //ECOUTER LE BOUTON SAUVEGARDER//
-saveEL.addEventListener('click')
+saveEL.addEventListener('click',()=>{
+  APPRENANTS.forEach(apprenant=>{
+fetch(
+    API_URL,{
+      method:'POST',
+      headers:{
+        apikey:API_KEY, 'Content-Type':'application/json'
+      },
+      body:JSON.stringify(apprenant)
+    }
+  )
+  })
+  
+}) 
+
+//Ajout bouton supprimer et modifier//
