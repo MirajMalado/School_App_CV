@@ -14,8 +14,7 @@ const levelEL = document. getElementById ('level')
 const valider = document.querySelector ('#btn-suggestion')
 const saveEL = document. getElementById ('saveEL')
 console.log(saveEL)
-const suppEL = document. getElementById ('supp')
-const modifEL = document. getElementById ('modif')
+
 const APPRENANTS = []
 
 let inputSuggestion = document.querySelector('#exampleFormControlTextarea1')
@@ -27,12 +26,17 @@ let inputSuggestion = document.querySelector('#exampleFormControlTextarea1')
 
 //Insertion carte au niveau du DOM//
 buttonEL.addEventListener('click', (e)=>{
-    console.log (e)
-    const ajouter_List = document. getElementById ('ajout_List')
     let apprenant = {prenom:prenomEL.value,
     nom:nameEL.value,
     bio:bioEL.value,
+    level:levelEL.value,
     }
+    const idSup = 'supprimer-'+apprenant.prenom
+    const idModif = 'modifier-'+apprenant.prenom
+    alert('Vos Données ont été ajoutées')
+    console.log (e)
+    const ajouter_List = document. getElementById ('ajout_List')
+
 APPRENANTS.push(apprenant)
     ajouter_List.insertAdjacentHTML(
         "afterbegin", 
@@ -40,11 +44,11 @@ APPRENANTS.push(apprenant)
         <div class="card w-75 mt-5">
         <h3> Profil de l'apprenant </h3>
         <div class= "text-end" >
-        <i class="bi bi-pen" id="modif"></i>
-        <i class="bi bi-archive" id="supp"></i>
+        <i class="bi bi-pen" id="${idModif}"></i>
+        <i class="bi bi-archive" id="${idSup}"></i>
         </div>
                     <div class="card-body">
-                      <h5 class="card-title"> ${apprenant.prenom} ${apprenant.nom} <br>${levelEL.value}</h5>
+                      <h5 class="card-title"> ${apprenant.prenom} ${apprenant.nom} <br>${apprenant.level}</h5>
                       <p class="card-text">${apprenant.bio}</p>
                     </div>
                   </div>
@@ -53,7 +57,15 @@ APPRENANTS.push(apprenant)
     
     )
 console.log(APPRENANTS)
-
+const modifEl = document.getElementById(idModif)
+const suppEL = document.getElementById(idSup)
+console.log(modifEl,suppEL);
+modifEl.addEventListener('click', ()=>{
+  alert('Modification')
+})
+suppEL.addEventListener('click',()=>{
+  alert('Supprimer')
+})
 });
 
 
@@ -95,6 +107,7 @@ inputSuggestion.addEventListener("input", (event) => {
 
 //ECOUTER LE BOUTON SAUVEGARDER//
 saveEL.addEventListener('click',()=>{
+  alert('Vos Données ont été sauvegardées')
   APPRENANTS.forEach(apprenant=>{
 fetch(
     API_URL,{
