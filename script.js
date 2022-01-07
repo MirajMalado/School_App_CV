@@ -13,6 +13,9 @@ const bioEL = document. getElementById ('exampleFormControlTextarea1')
 const levelEL = document. getElementById ('level')
 const valider = document.querySelector ('#btn-suggestion')
 const saveEL = document. getElementById ('saveEL')
+const CompetEL = document.getElementById ('competences')
+const mainList = document.getElementById('mainList')
+const mainContent = document.getElementById('main_content')
 console.log(saveEL)
 
 const APPRENANTS = []
@@ -30,6 +33,7 @@ buttonEL.addEventListener('click', (e)=>{
     nom:nameEL.value,
     bio:bioEL.value,
     level:levelEL.value,
+    competences:CompetEL.value,
     }
     const idSup = 'supprimer-'+apprenant.prenom
     const idModif = 'modifier-'+apprenant.prenom
@@ -48,7 +52,7 @@ APPRENANTS.push(apprenant)
         <i class="bi bi-archive" id="${idSup}"></i>
         </div>
                     <div class="card-body">
-                      <h5 class="card-title"> ${apprenant.prenom} ${apprenant.nom} <br>${apprenant.level}</h5>
+                      <h5 class="card-title"> ${apprenant.prenom} ${apprenant.nom} <br>${apprenant.level} <br></h5>
                       <p class="card-text">${apprenant.bio}</p>
                     </div>
                   </div>
@@ -108,6 +112,8 @@ inputSuggestion.addEventListener("input", (event) => {
 //ECOUTER LE BOUTON SAUVEGARDER//
 saveEL.addEventListener('click',()=>{
   alert('Vos Données ont été sauvegardées')
+  mainContent.classList.add('d-none')
+  mainList.classList.remove('d-none')
   APPRENANTS.forEach(apprenant=>{
 fetch(
     API_URL,{
@@ -123,3 +129,5 @@ fetch(
 }) 
 
 //Ajout de la carte d'affichage des derails//
+
+    

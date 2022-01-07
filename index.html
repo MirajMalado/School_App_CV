@@ -14,7 +14,7 @@
     <title>School App</title>
 </head>
 <body>
-<div class="row">
+<div class="row" id="main_content">
     <div class="container col-lg-6 m-0" id="form">
         <h3 class="text-center py-3">Ajouter un apprenant</h3>
         <div class="mb-2">
@@ -30,6 +30,14 @@
                 <option>Intermediaire</option>
                 <option>Professionnel</option>
               </select>
+             <div>
+              <select class="form-select" aria-label="Default select example" id="competences">
+                <option selected>Competences</option>
+                <option>Maquettage</option>
+                <option>Developpement Back-end</option>
+                <option>Developpement Front-end</option>
+              </select>
+             </div>
             <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             <p id="limite-text">
@@ -54,6 +62,11 @@
 
 
     </div>
+</div>
+
+<div  class="row d-none" id="mainList">
+<h1>hello world</h1>
+
 </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
